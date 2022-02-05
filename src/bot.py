@@ -127,4 +127,5 @@ async def main():
         await post_tweet(format_tweet(repo_data))
         await asyncio.sleep(10)
 
-asyncio.run(main())
+if __name__ == '__main__':
+    asyncio.run(main())
