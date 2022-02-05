@@ -94,11 +94,11 @@ def scrape_repo_data(soup):
     for a_element in a_elements:
         if len(a_element.select('svg[class*="octicon-star"]')) > 0:
             try:
-                stars = int(a_element.text.strip())
+                stars = int(a_element.text.strip().replace(',', ''))
             except ValueError:
                 continue
             break
-    star_gains = int(soup.select('span')[-1].text.strip().split(' ')[0])
+    star_gains = int(soup.select('span')[-1].text.strip().split(' ')[0].replace(',', ''))
 
     return {
         'organization': organization,
