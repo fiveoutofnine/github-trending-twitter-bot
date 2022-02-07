@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 import os
 import sqlite3
 import time
@@ -98,7 +99,10 @@ def scrape_repo_data(soup):
             except ValueError:
                 continue
             break
-    star_gains = int(soup.select('span')[-1].text.strip().split(' ')[0].replace(',', ''))
+    try:
+        star_gains = int(soup.select('span')[-1].text.strip().split(' ')[0].replace(',', ''))
+    except ValueError:
+        star_gains = 0
 
     return {
         'organization': organization,
@@ -125,7 +129,8 @@ async def main():
     for repo_data in trending_repos:
         if has_tweeted(repo_data): continue
         await post_tweet(format_tweet(repo_data))
-        await asyncio.sleep(10)
+        await asyncio.sleep(300)
 
 if __name__ == '__main__':
+    print('RUNNING')
     asyncio.run(main())
