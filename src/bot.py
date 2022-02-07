@@ -129,7 +129,7 @@ async def main():
     for repo_data in trending_repos:
         if has_tweeted(repo_data): continue
         await post_tweet(format_tweet(repo_data))
-        await asyncio.sleep(300)
+        await asyncio.sleep(10)
 
 if __name__ == '__main__':
     print('RUNNING')
